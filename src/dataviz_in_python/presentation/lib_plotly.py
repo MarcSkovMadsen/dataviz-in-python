@@ -8,7 +8,7 @@ from dataviz_in_python import config
 config.configure("plotly", url="lib_plotly", title="Plotly")
 
 TEXT = """
-# Plotly: High Quality Plots in Python
+# Plotly: High Quality, Interactive Plots in Python
 
 [Plotly](https://plotly.com/python/)'s Python graphing library makes interactive, publication-quality graph.
 
@@ -51,6 +51,7 @@ def get_plot(theme="default", accent_base_color="blue"):
     fig.update_traces(mode="lines+markers", marker=dict(size=10), line=dict(width=4))
     fig.layout.autosize = True
     return fig
+
 
 plot = get_plot(theme=config.get_theme(), accent_base_color=config.ACCENT_BASE_COLOR)
 pn.pane.Plotly(plot, config={"responsive": True}, sizing_mode="stretch_both", height=700).servable()

@@ -24,7 +24,6 @@ the api.
 pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
-
 def get_plot(theme="default", accent_base_color="blue"):
     if theme == "dark":
         sns.set_style("darkgrid")
@@ -37,6 +36,7 @@ def get_plot(theme="default", accent_base_color="blue"):
     fig0 = plot.fig
     fig0.set_size_inches(16, 8)
     return fig0
+
 
 plot = get_plot(theme=config.get_theme(), accent_base_color=config.ACCENT_BASE_COLOR)
 pn.pane.Matplotlib(plot, height=700, sizing_mode="stretch_both").servable()

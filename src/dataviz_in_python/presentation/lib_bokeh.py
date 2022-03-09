@@ -13,11 +13,12 @@ TEXT = """
 
 [Bokeh](https://docs.bokeh.org/en/latest/) is a Python library for creating interactive visualizations for modern web browsers.
 
-I think Bokeh appeals to users with specialized, scientific or streaming use cases. Bokeh has a lot of "specialized" tools for selecting or adding data points.
+I think Bokeh appeals to users with specialized, scientific or streaming use cases. Bokeh has a lot of "specialized" tools for specialized use cases.
 
 [Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_bokeh.py)
 """
 pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
+
 
 def get_plot():
     sigma = 10
@@ -52,9 +53,7 @@ def get_plot():
         "#08306B",
     ]
 
-    plot = figure(
-        title="Lorenz attractor example", tools=["pan,wheel_zoom,box_zoom,reset,hover"]
-    )
+    plot = figure(title="Lorenz attractor example", tools=["pan,wheel_zoom,box_zoom,reset,hover"])
 
     plot.multi_line(
         np.array_split(xprime, 7),
@@ -64,6 +63,7 @@ def get_plot():
         line_width=1.5,
     )
     return plot
+
 
 plot = get_plot()
 pn.pane.Bokeh(plot, height=700, sizing_mode="stretch_both").servable()

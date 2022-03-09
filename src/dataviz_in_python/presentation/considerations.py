@@ -12,11 +12,9 @@ preferences, team and much more**.
 - Will this be a part of an interactive data app built using Dash, Jupyter Voila, Panel, Streamlit, Angular etc.?
 - How will you deploy and share with users?
 
-I would always recommend to **start out with the Pandas .plot api** or something very similar if possible.
+I would always recommend to **start out with the [Pandas .plot api](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html)** or something very similar if possible.
 
 But visualization is not only plots. Its also interactive images, tables etc. And closely related are other formats like Audio, Video etc.
 """
 
-pn.Column(
-    pn.panel(TEXT, css_classes=[config.TEXT_CLASS])
-).servable()
+pn.Column(pn.panel(TEXT, css_classes=[config.TEXT_CLASS])).servable()

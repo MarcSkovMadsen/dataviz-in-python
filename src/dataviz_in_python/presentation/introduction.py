@@ -4,7 +4,7 @@ from dataviz_in_python import config
 
 config.configure(title="Introduction")
 
-INTRODUCTION  = """
+INTRODUCTION = """
 ## DataViz in Python
 
 The Python visualization landscape can seem daunting at first. In this presentation I will give my 
@@ -20,5 +20,5 @@ LANDSCAPE = "https://rougier.github.io/python-visualization-landscape/landscape-
 pn.Column(
     pn.panel(INTRODUCTION, css_classes=[config.TEXT_CLASS]),
     pn.layout.Divider(),
-    pn.panel(LANDSCAPE, height=700, align="center")
+    pn.panel(LANDSCAPE, height=700, align="center"),
 ).servable()

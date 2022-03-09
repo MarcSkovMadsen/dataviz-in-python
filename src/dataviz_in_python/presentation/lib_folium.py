@@ -1,7 +1,7 @@
 import folium
 import panel as pn
 
-from html import escape # noqa
+from html import escape  # noqa
 
 from dataviz_in_python import config
 
@@ -20,7 +20,9 @@ pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
 def get_plot():
-    plot = folium.Map(location=[45.372, -121.6972], zoom_start=12, tiles="Stamen Terrain") #,  width='100%', height="50%")
+    plot = folium.Map(
+        location=[45.372, -121.6972], zoom_start=12, tiles="Stamen Terrain"
+    )  # ,  width='100%', height="50%")
 
     folium.Marker(
         location=[45.3288, -121.6625],
@@ -41,19 +43,22 @@ def get_plot():
     ).add_to(plot)
     return plot
 
+
 plot = get_plot()
+
 
 def _get_properties(self):
     properties = pn.pane.HTML._get_properties(self)
-    text = '' if self.object is None else self.object
-    if hasattr(text, '_repr_html_'):
+    text = "" if self.object is None else self.object
+    if hasattr(text, "_repr_html_"):
         text = text._repr_html_()
         before = '<div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;">'
         after = '<div style="width:100%;height:100%"><div style="position:relative;width:100%;height:100%;padding-bottom:0%;">'
-        text=text.replace(before, after)
+        text = text.replace(before, after)
     return dict(properties, text=escape(text))
 
+
 # A Hack to be able to get responsive Folium plots
-pn.pane.plot.Folium._get_properties=_get_properties
+pn.pane.plot.Folium._get_properties = _get_properties
 
 pn.pane.plot.Folium(plot, min_height=700, sizing_mode="stretch_both").servable()

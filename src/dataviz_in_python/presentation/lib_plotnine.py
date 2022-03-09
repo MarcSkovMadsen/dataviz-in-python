@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import panel as pn
 
-from plotnine import (aes, element_rect, facet_wrap, geom_point, ggplot, stat_smooth, themes)
+from plotnine import aes, element_rect, facet_wrap, geom_point, ggplot, stat_smooth, themes
 from plotnine.data import mtcars
 from dataviz_in_python import config
 
@@ -37,6 +37,7 @@ def get_plot(theme="default"):
         + themes.theme(figure_size=(16, 8))
     )
     return plot.draw()
+
 
 plot = get_plot(theme=config.get_theme())
 

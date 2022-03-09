@@ -19,7 +19,10 @@ pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 # Please create your own access token one your own Access tokens page
 # https://account.mapbox.com/access-tokens/
-MAPBOX_KEY = "pk.eyJ1IjoicGFuZWxvcmciLCJhIjoiY2s1enA3ejhyMWhmZjNobjM1NXhtbWRrMyJ9.B_frQsAVepGIe-HiOJeqvQ"
+MAPBOX_KEY = (
+    "pk.eyJ1IjoicGFuZWxvcmciLCJhIjoiY2s1enA3ejhyMWhmZjNobjM1NXhtbWRrMyJ9.B_frQsAVepGIe-HiOJeqvQ"
+)
+
 
 def get_plot(theme=THEME):
     if theme == "dark":
@@ -55,7 +58,6 @@ def get_plot(theme=THEME):
         "views": [{"@@type": "MapView", "controller": True}],
     }
 
+
 plot = get_plot()
-pn.pane.DeckGL(
-    plot, mapbox_api_key=MAPBOX_KEY, sizing_mode="stretch_both", height=700
-).servable()
+pn.pane.DeckGL(plot, mapbox_api_key=MAPBOX_KEY, sizing_mode="stretch_both", height=700).servable()

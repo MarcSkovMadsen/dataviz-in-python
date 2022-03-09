@@ -57,5 +57,6 @@ def get_plot(theme="default", accent_base_color="red"):
         ren.SetBackground(0.97, 0.97, 0.97)
     return renWin
 
+
 plot = get_plot(theme=config.get_theme())
 component = pn.pane.VTK(plot, height=700, sizing_mode="stretch_both").servable()

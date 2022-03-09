@@ -26,8 +26,8 @@ def get_plot(theme="default"):
     if theme == "dark":
         plt.style.use("dark_background")
     Y, X = np.mgrid[-3:3:100j, -3:3:100j]
-    U = -1 - X ** 2 + Y
-    V = 1 + X - Y ** 2
+    U = -1 - X**2 + Y
+    V = 1 + X - Y**2
     speed = np.sqrt(U * U + V * V)
 
     fig0 = Figure(figsize=(12, 6))
@@ -37,6 +37,7 @@ def get_plot(theme="default"):
     strm = ax0.streamplot(X, Y, U, V, color=U, linewidth=2, cmap=cm.autumn)
     fig0.colorbar(strm.lines)
     return fig0
+
 
 plot = get_plot(theme=config.get_theme())
 pn.pane.Matplotlib(plot, height=600, sizing_mode="scale_height").servable()

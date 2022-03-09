@@ -33,6 +33,7 @@ def get_plot(accent_base_color="blue"):
     plot["responsive"] = True
     return plot
 
-theme=config.get_theme()
+
+theme = config.get_theme()
 plot = get_plot(accent_base_color=config.ACCENT_BASE_COLOR)
 pn.pane.ECharts(plot, min_height=500, sizing_mode="stretch_both", theme=theme).servable()

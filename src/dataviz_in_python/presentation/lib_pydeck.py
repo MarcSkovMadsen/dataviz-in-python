@@ -16,9 +16,7 @@ pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
 def get_plot(theme="default", accent_base_color="blue"):
-    LAND_COVER = [
-        [[-123.0, 49.196], [-123.0, 49.324], [-123.306, 49.324], [-123.306, 49.196]]
-    ]
+    LAND_COVER = [[[-123.0, 49.196], [-123.0, 49.324], [-123.306, 49.324], [-123.306, 49.196]]]
     polygon = pydeck.Layer(
         "PolygonLayer",
         LAND_COVER,
@@ -47,7 +45,9 @@ def get_plot(theme="default", accent_base_color="blue"):
         deckgl_map_style = "mapbox://styles/mapbox/dark-v9"
     else:
         deckgl_map_style = "mapbox://styles/mapbox/light-v9"
-    MAPBOX_KEY = "pk.eyJ1IjoicGFuZWxvcmciLCJhIjoiY2s1enA3ejhyMWhmZjNobjM1NXhtbWRrMyJ9.B_frQsAVepGIe-HiOJeqvQ"
+    MAPBOX_KEY = (
+        "pk.eyJ1IjoicGFuZWxvcmciLCJhIjoiY2s1enA3ejhyMWhmZjNobjM1NXhtbWRrMyJ9.B_frQsAVepGIe-HiOJeqvQ"
+    )
     INITIAL_VIEW_STATE = pydeck.ViewState(
         latitude=49.254, longitude=-123.13, zoom=11, max_zoom=16, pitch=45, bearing=0
     )
@@ -69,6 +69,7 @@ def get_plot(theme="default", accent_base_color="blue"):
     }
     tooltips = {geojson.id: geojson_tooltip}
     return r, tooltips
+
 
 plot, tooltips = get_plot()
 

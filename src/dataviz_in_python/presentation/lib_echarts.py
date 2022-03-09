@@ -34,5 +34,6 @@ def get_plot():
         "responsive": True,
     }
 
+
 plot = get_plot()
 pn.pane.ECharts(plot, min_height=700, sizing_mode="stretch_both").servable()

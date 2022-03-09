@@ -26,9 +26,7 @@ def get_plot(theme="default", accent_base_color="blue"):
 
     # we create a `VTK` panel around the render window
     pvcylinder = pv.Cylinder(resolution=8, direction=(0, 1, 0))
-    cylinder_actor = plotter.add_mesh(
-        pvcylinder, color=accent_base_color, smooth_shading=True
-    )
+    cylinder_actor = plotter.add_mesh(pvcylinder, color=accent_base_color, smooth_shading=True)
     cylinder_actor.RotateX(30.0)
     cylinder_actor.RotateY(-45.0)
     plotter.add_mesh(
@@ -37,6 +35,7 @@ def get_plot(theme="default", accent_base_color="blue"):
         smooth_shading=True,
     )
     return plotter.ren_win
+
 
 plot = get_plot(theme=config.get_theme(), accent_base_color=config.ACCENT_BASE_COLOR)
 pn.panel(plot, height=700, sizing_mode="stretch_both").servable()

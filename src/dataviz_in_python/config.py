@@ -6,7 +6,7 @@ import panel as pn
 ACCENT_BASE_COLOR = "#4099da"
 
 ROOT = pathlib.Path(__file__).parent
-MENU_HTML_PATH = (ROOT / "assets" / "menu.html")
+MENU_HTML_PATH = ROOT / "assets" / "menu.html"
 MENU_HTML = MENU_HTML_PATH.read_text()
 
 COLLAPSED_ICON = """
@@ -34,37 +34,42 @@ div.bk.presentation-text.markdown div {
     font-size: var(--type-ramp-plus-3-font-size);
 }
 """
-            
+
 
 def get_menu(url, title):
     return (
         MENU_HTML_PATH.read_text()
         .replace("{ COLLAPSED_ICON }", COLLAPSED_ICON)
         .replace("{ EXPANDED_ICON }", EXPANDED_ICON)
-        .replace(f'<li><a href="{ url }">{ title }</a></li>', f'<li class="menu-item-active"><a href="{ url }">{ title }</a></li>')
+        .replace(
+            f'<li><a href="{ url }">{ title }</a></li>',
+            f'<li class="menu-item-active"><a href="{ url }">{ title }</a></li>',
+        )
     )
+
 
 def get_theme():
     template = pn.state.template
     theme = "dark" if template.theme == pn.template.DarkTheme else "default"
     return theme
 
+
 def configure(
     *args,
     title: str,
-    url: Optional[str]=None,
+    url: Optional[str] = None,
     sizing_mode="stretch_width",
     template="fast",
     accent_color=ACCENT_BASE_COLOR,
     site="DataViz in Python",
 ):
-    """Runs pn.extension and pn.state.template.param.update with the specified 
+    """Runs pn.extension and pn.state.template.param.update with the specified
     arguments"""
     if not CSS in pn.config.raw_css:
         pn.config.raw_css.append(CSS)
-    
+
     pn.extension(*args, sizing_mode=sizing_mode, template=template)
-    
+
     if not url:
         url = title.lower().replace(" ", "_")
     menu = get_menu(url=url, title=title)
@@ -74,5 +79,5 @@ def configure(
         title=title,
         accent_base_color=accent_color,
         header_background=accent_color,
-        sidebar_footer=menu
+        sidebar_footer=menu,
     )
