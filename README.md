@@ -4,6 +4,8 @@
 
 This repository contains an introduction to dataviz in Python with a focus on browser based, interactive dataviz.
 
+![Tour](assets/dataviz-in-python.gif)
+
 ## Installation
 
 ```bash
@@ -19,4 +21,4 @@ pip install -e .[all]
 panel serve src/dataviz_in_python/presentation/*.py
 ```
 
-You view the presentation at [http://localhost:5006/introduction](http://localhost:5006/introduction).
+You can view the presentation at [http://localhost:5006/introduction](http://localhost:5006/introduction).

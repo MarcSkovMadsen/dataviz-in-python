@@ -8,7 +8,7 @@ from dataviz_in_python import config
 config.configure("echarts", url="lib_pyecharts", title="PyECharts")
 
 TEXT = """
-# PyEcharts: 
+# PyEcharts: A Python wrapper for ECharts
 
 [PyEcharts](https://pyecharts.org/#/) is a Python wrapper for [ECharts](lib_echarts).
 
