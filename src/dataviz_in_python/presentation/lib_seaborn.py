@@ -3,19 +3,26 @@ import matplotlib.pyplot as plt
 import panel as pn
 import seaborn as sns
 
-pn.extension(sizing_mode="stretch_width")
-
 penguins = sns.load_dataset("penguins")
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="Seaborn",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+from dataviz_in_python import config
+
+config.configure(url="lib_seaborn", title="Seaborn")
+
+TEXT = """
+# Seaborn: Statistical data visualization
+
+[Seaborn](https://seaborn.pydata.org/) Seaborn is a Python data visualization
+library based on [matplotlib](lib_matplotlib). It provides a high-level 
+interface for drawing attractive and informative statistical graphics.
+
+Please note the lead developer is tweeting about upcoming, major changes to
+the api.
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_seaborn.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
+
 
 
 def get_plot(theme="default", accent_base_color="blue"):
@@ -28,10 +35,8 @@ def get_plot(theme="default", accent_base_color="blue"):
 
     plot = sns.displot(penguins, x="flipper_length_mm", color=accent_base_color)
     fig0 = plot.fig
-    fig0.set_size_inches(8, 4)
+    fig0.set_size_inches(16, 8)
     return fig0
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.pane.Matplotlib(plot, sizing_mode="stretch_both")
-template.main.append(component)
-template.servable()
+plot = get_plot(theme=config.get_theme(), accent_base_color=config.ACCENT_BASE_COLOR)
+pn.pane.Matplotlib(plot, height=700, sizing_mode="stretch_both").servable()

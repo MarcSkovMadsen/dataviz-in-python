@@ -3,20 +3,25 @@ import panel as pn
 
 from pyecharts.charts import Bar
 
-pn.extension("echarts", sizing_mode="stretch_width")
+from dataviz_in_python import config
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="PyECharts",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+config.configure("echarts", url="lib_pyecharts", title="PyECharts")
+
+TEXT = """
+# PyEcharts: 
+
+[PyEcharts](https://pyecharts.org/#/) is a Python wrapper for [ECharts](lib_echarts).
+
+Please note **currently I cannot recommend PyEcharts** as the documentation often seems out of date 
+and the examples not working. But Echarts and thus PyEcharts is an Apache project and produces 
+business plots of a higher quality than Plotly. So it worth monitoring.
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_pyecharts.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
-def get_plot(theme="default", accent_base_color="blue"):
+def get_plot(accent_base_color="blue"):
     plot = (
         Bar()
         .add_xaxis(["Helicoptors", "Planes", "Air Ballons"])
@@ -28,7 +33,6 @@ def get_plot(theme="default", accent_base_color="blue"):
     plot["responsive"] = True
     return plot
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.pane.ECharts(plot, min_height=500, sizing_mode="stretch_both", theme=theme)
-template.main.append(component)
-template.servable()
+theme=config.get_theme()
+plot = get_plot(accent_base_color=config.ACCENT_BASE_COLOR)
+pn.pane.ECharts(plot, min_height=500, sizing_mode="stretch_both", theme=theme).servable()

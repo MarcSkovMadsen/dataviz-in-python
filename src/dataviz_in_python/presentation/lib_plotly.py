@@ -3,17 +3,23 @@ import panel as pn
 
 import plotly.express as px
 
-pn.extension("plotly", sizing_mode="stretch_width")
+from dataviz_in_python import config
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="Plotly",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+config.configure("plotly", url="lib_plotly", title="Plotly")
+
+TEXT = """
+# Plotly: High Quality Plots in Python
+
+[Plotly](https://plotly.com/python/)'s Python graphing library makes interactive, publication-quality graph.
+
+Plotly is one of the most popular plotting libraries in Python. It has high quality documentation and produces very appealing plots.
+
+One thing to note is that Plotly is a also a company that has a hard time finding funding for developing Plotly. 
+Increasingly they focus on and market Dash the data app framework because there is a business case.
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_plotly.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
 def get_plot(theme="default", accent_base_color="blue"):
@@ -46,7 +52,5 @@ def get_plot(theme="default", accent_base_color="blue"):
     fig.layout.autosize = True
     return fig
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.pane.Plotly(plot, config={"responsive": True})
-template.main.append(component)
-template.servable()
+plot = get_plot(theme=config.get_theme(), accent_base_color=config.ACCENT_BASE_COLOR)
+pn.pane.Plotly(plot, config={"responsive": True}, sizing_mode="stretch_both", height=700).servable()

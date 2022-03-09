@@ -3,20 +3,24 @@ import vtk
 
 from vtk.util.colors import tomato
 
-pn.extension("vtk", sizing_mode="stretch_width")
+from dataviz_in_python import config
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="VTK",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+config.configure("vtk", url="lib_vtk", title="VTK")
+
+TEXT = """
+# VTK: Process images and create 3D computer graphics with the Visualization Toolkit.
+
+[VTK](https://vtk.org/) is open source software for manipulating and 
+displaying scientific data. It comes with state-of-the-art tools for 3D 
+rendering, a suite of widgets for 3D interaction, and extensive 2D 
+plotting capability.
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_vtk.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
-def get_plot(theme="default", accent_base_color="blue"):
+def get_plot(theme="default", accent_base_color="red"):
     # This creates a polygonal cylinder model with eight circumferential
     # facets.
     cylinder = vtk.vtkCylinderSource()
@@ -53,7 +57,5 @@ def get_plot(theme="default", accent_base_color="blue"):
         ren.SetBackground(0.97, 0.97, 0.97)
     return renWin
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.pane.VTK(plot, height=500, sizing_mode="stretch_both")
-template.main.append(component)
-template.servable()
+plot = get_plot(theme=config.get_theme())
+component = pn.pane.VTK(plot, height=700, sizing_mode="stretch_both").servable()

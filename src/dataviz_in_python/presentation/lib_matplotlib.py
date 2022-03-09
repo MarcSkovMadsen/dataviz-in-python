@@ -1,24 +1,27 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
-from matplotlib.backends.backend_agg import     FigureCanvas  # not needed for mpl >= 3.1
+from matplotlib.backends.backend_agg import FigureCanvas  # not needed for mpl >= 3.1
 from matplotlib.figure import Figure
 import panel as pn
 
-pn.extension(sizing_mode="stretch_width")
+from dataviz_in_python import config
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="Matplotlib",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+config.configure("vega", url="lib_matplotlib", title="Matplotlib")
+
+TEXT = """
+# Matplotlib: Static plots in Python without limits
+
+[Matplotlib](https://matplotlib.org/) is a comprehensive library for creating static, animated, and interactive visualizations in Python. Matplotlib makes easy things easy and hard things possible. Matplotlib is the most used plotting library in Python.
+
+Matplotlib only supports interactivity to a limited extent compared to Altair, Bokeh, HoloViews and Plotly. So personally I normally don't use it.
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_matplotlib.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
-def get_plot(theme="default", accent_base_color="blue"):
+def get_plot(theme="default"):
     plt.style.use("default")
     if theme == "dark":
         plt.style.use("dark_background")
@@ -35,7 +38,5 @@ def get_plot(theme="default", accent_base_color="blue"):
     fig0.colorbar(strm.lines)
     return fig0
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.pane.Matplotlib(plot, height=500, sizing_mode="stretch_both")
-template.main.append(component)
-template.servable()
+plot = get_plot(theme=config.get_theme())
+pn.pane.Matplotlib(plot, height=600, sizing_mode="scale_height").servable()

@@ -1,19 +1,24 @@
 import panel as pn
 
-pn.extension("vega", sizing_mode="stretch_width")
+from dataviz_in_python import config
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="Vega",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+config.configure(url="lib_vega", title="Vega & Vega-Lite")
+
+TEXT = """
+# Vega: A Grammar of Graphics for Python
+
+[Vega](https://vega.github.io/) is a declarative format for creating, saving, and sharing 
+visualization designs. With Vega, visualizations are described in JSON, and 
+generate interactive views using either HTML5 Canvas or SVG.
+
+Please note that **you should be using the higher level Vega-Lite format.**
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_vega.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
-def get_plot(theme="default", accent_base_color="blue"):
+def get_plot(theme="default"):
     vegalite = {
         "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
         "data": {
@@ -38,7 +43,5 @@ def get_plot(theme="default", accent_base_color="blue"):
         }
     return vegalite
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.pane.Vega(plot, height=500, sizing_mode="stretch_both")
-template.main.append(component)
-template.servable()
+plot = get_plot(theme=config.get_theme())
+pn.pane.Vega(plot, height=700, sizing_mode="stretch_both").servable()

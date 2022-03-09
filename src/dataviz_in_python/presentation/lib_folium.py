@@ -1,22 +1,25 @@
-import folium as fm
+import folium
 import panel as pn
 
 from html import escape # noqa
 
-pn.extension(sizing_mode="stretch_width")
+from dataviz_in_python import config
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="Folium",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+config.configure("vega", url="lib_folium", title="Folium")
+
+TEXT = """
+# Folium: GeoViz using Python data wrangling and Leaflet.js
+
+[Folium](https://python-visualization.github.io/folium/) builds on the data wrangling strengths of the Python ecosystem and the mapping strengths of the leaflet.js library. Manipulate your data in Python, then visualize it in on a Leaflet map via folium
+
+Please note that Folium **does not support two-way events** like click etc. in your data apps.
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_folium.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
-def get_plot(theme="default", accent_base_color="blue"):
+def get_plot():
     plot = folium.Map(location=[45.372, -121.6972], zoom_start=12, tiles="Stamen Terrain") #,  width='100%', height="50%")
 
     folium.Marker(
@@ -38,7 +41,7 @@ def get_plot(theme="default", accent_base_color="blue"):
     ).add_to(plot)
     return plot
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
+plot = get_plot()
 
 def _get_properties(self):
     properties = pn.pane.HTML._get_properties(self)
@@ -50,7 +53,7 @@ def _get_properties(self):
         text=text.replace(before, after)
     return dict(properties, text=escape(text))
 
+# A Hack to be able to get responsive Folium plots
 pn.pane.plot.Folium._get_properties=_get_properties
-component = pn.pane.plot.Folium(plot, min_height=500, sizing_mode="stretch_both")
-template.main.append(component)
-template.servable()
+
+pn.pane.plot.Folium(plot, min_height=700, sizing_mode="stretch_both").servable()

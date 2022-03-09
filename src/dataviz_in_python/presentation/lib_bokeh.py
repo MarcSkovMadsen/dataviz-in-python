@@ -4,20 +4,22 @@ import panel as pn
 from bokeh.plotting import figure
 from scipy.integrate import odeint
 
-pn.extension(sizing_mode="stretch_width")
+from dataviz_in_python import config
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="Bokeh",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+config.configure(title="Bokeh", url="lib_bokeh")
 
+TEXT = """
+# Bokeh: Interactive Visualization in the Browser
 
-def get_plot(theme="default", accent_base_color="blue"):
+[Bokeh](https://docs.bokeh.org/en/latest/) is a Python library for creating interactive visualizations for modern web browsers.
+
+I think Bokeh appeals to users with specialized, scientific or streaming use cases. Bokeh has a lot of "specialized" tools for selecting or adding data points.
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_bokeh.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
+
+def get_plot():
     sigma = 10
     rho = 28
     beta = 8.0 / 3
@@ -63,7 +65,5 @@ def get_plot(theme="default", accent_base_color="blue"):
     )
     return plot
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.pane.Bokeh(plot, height=500, sizing_mode="stretch_both")
-template.main.append(component)
-template.servable()
+plot = get_plot()
+pn.pane.Bokeh(plot, height=700, sizing_mode="stretch_both").servable()

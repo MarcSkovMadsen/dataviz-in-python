@@ -1,59 +1,38 @@
 import panel as pn
 
-pn.extension("deckgl", sizing_mode="stretch_width")
+from dataviz_in_python import config
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="DeckGL",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+config.configure("echarts", title="Echarts", url="lib_echarts")
+
+TEXT = """
+# Echarts: Modern .js visualization in the browser
+
+[ECharts](https://echarts.apache.org/en/index.html) is a a very powerful and appealing open source javaScript visualization library.
+
+For a more Pythonic interface see [PyEcharts](lib_pyecharts). For another example see [awesome-panel.org/echarts](https://awesome-panel.org/echarts).
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_echarts.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
-# Please create your own access token one your own Access tokens page
-# https://account.mapbox.com/access-tokens/
-MAPBOX_KEY = "pk.eyJ1IjoicGFuZWxvcmciLCJhIjoiY2s1enA3ejhyMWhmZjNobjM1NXhtbWRrMyJ9.B_frQsAVepGIe-HiOJeqvQ"
-
-def get_plot(theme="default", accent_base_color="blue"):
-    if theme == "dark":
-        deckgl_map_style = "mapbox://styles/mapbox/dark-v9"
-    else:
-        deckgl_map_style = "mapbox://styles/mapbox/light-v9"
-
+def get_plot():
     return {
-        "initialViewState": {
-            "bearing": -27.36,
-            "latitude": 52.2323,
-            "longitude": -1.415,
-            "maxZoom": 15,
-            "minZoom": 5,
-            "pitch": 40.5,
-            "zoom": 6,
-        },
-        "layers": [
+        "xAxis": {"data": ["2017-10-24", "2017-10-25", "2017-10-26", "2017-10-27"]},
+        "yAxis": {},
+        "series": [
             {
-                "@@type": "HexagonLayer",
-                "autoHighlight": True,
-                "coverage": 1,
-                "data": "https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv",
-                "elevationRange": [0, 3000],
-                "elevationScale": 50,
-                "extruded": True,
-                "getPosition": "@@=[lng, lat]",
-                "id": "8a553b25-ef3a-489c-bbe2-e102d18a3211",
-                "pickable": True,
+                "type": "k",
+                "data": [
+                    [20, 34, 10, 38],
+                    [40, 35, 30, 50],
+                    [31, 38, 33, 44],
+                    [38, 15, 5, 42],
+                ],
             }
         ],
-        "mapStyle": deckgl_map_style,
-        "views": [{"@@type": "MapView", "controller": True}],
+        "responsive": True,
     }
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.pane.DeckGL(
-    plot, mapbox_api_key=MAPBOX_KEY, sizing_mode="stretch_both", height=500
-)
-template.main.append(component)
-template.servable()
+plot = get_plot()
+pn.pane.ECharts(plot, min_height=700, sizing_mode="stretch_both").servable()

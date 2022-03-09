@@ -1,19 +1,20 @@
 import json
 import panel as pn
+import pyvista as pv
 
-from pyecharts.charts import Bar
+from dataviz_in_python import config
 
-pn.extension("vtk", sizing_mode="stretch_width")
+config.configure("vtk", url="lib_vista", title="PyVista")
 
-accent_base_color = "#DAA520"
-template = pn.template.FastListTemplate(
-    site="Awesome Panel",
-    title="PyVista",
-    accent_base_color=accent_base_color,
-    header_background=accent_base_color,
-    header_accent_base_color="white",
-)
-theme = "dark" if template.theme == pn.template.DarkTheme else "default"
+TEXT = """
+# PyVista: 3D plotting and mesh analysis through a streamlined interface for the Visualization Toolkit (VTK)
+
+[PyVista](https://docs.pyvista.org/) PyVista is a helper module for the Visualization Toolkit (VTK) 
+that takes a different approach on interfacing with VTK through NumPy and direct array access
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_pyvista.py)
+"""
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
 
 
 def get_plot(theme="default", accent_base_color="blue"):
@@ -37,7 +38,5 @@ def get_plot(theme="default", accent_base_color="blue"):
     )
     return plotter.ren_win
 
-plot = get_plot(theme=theme, accent_base_color=accent_base_color)
-component = pn.panel(plot, height=500, sizing_mode="stretch_both")
-template.main.append(component)
-template.servable()
+plot = get_plot(theme=config.get_theme(), accent_base_color=config.ACCENT_BASE_COLOR)
+pn.panel(plot, height=700, sizing_mode="stretch_both").servable()

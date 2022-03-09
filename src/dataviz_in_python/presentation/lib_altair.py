@@ -1,18 +1,23 @@
 import altair as alt
 import panel as pn
-
 from vega_datasets import data
+
 from dataviz_in_python import config
 
-config.configure("vega", title="Altair")
-
-theme = config.get_theme()
+config.configure("vega", url="lib_altair", title="Altair")
 
 TEXT = """
-# Altair
+# Altair: Declarative Visualization in Python
 
-Source: 
+[Altair](https://altair-viz.github.io/) is a declarative statistical visualization library for Python, based on Vega and Vega-Lite.
+
+Traditionally Altair has been limited by data size. But [Vega Fusion](https://github.com/vegafusion/vegafusion/) is changing that. 
+See also [Panel-VegaFusion](https://github.com/MarcSkovMadsen/panel-vegafusion).
+
+[Source Code](https://github.com/MarcSkovMadsen/dataviz-in-python/blob/main/src/dataviz_in_python/presentation/lib_altair.py)
 """
+pn.panel(TEXT, css_classes=[config.TEXT_CLASS]).servable()
+
 
 def get_plot(theme="default"):
     if theme == "dark":
@@ -36,5 +41,6 @@ def get_plot(theme="default"):
         .interactive()
     )
 
-plot = get_plot(theme=theme)
-pn.pane.Vega(plot, height=800, sizing_mode="stretch_both").servable()
+
+plot = get_plot(theme=config.get_theme())
+pn.pane.Vega(plot, height=700, sizing_mode="stretch_both").servable()
